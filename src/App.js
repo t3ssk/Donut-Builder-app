@@ -1,14 +1,16 @@
+import React from 'react'
+import {Layout} from './components/Layout/Layout'
+import DonutBuilder from './containers/DonutBuilder/DonutBuilder'
 
-import './App.css';
 
-function App() {
+
+class App extends React.Component {
+  render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Donuti<i class="fa fa-circle"></i></h1>
-      </header>
-    </div>
-  );
+    <Layout>
+      <DonutBuilder/>
+    </Layout>
+  );}
 }
 
 export default App;
