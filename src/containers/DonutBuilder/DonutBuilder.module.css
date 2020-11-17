@@ -5,6 +5,7 @@
     letter-spacing: 5px;
     color: #46cde0;
     position: absolute;
+    z-index: 50;
     margin-top: -50px;
     margin-left: 70%;
     background-color: white;

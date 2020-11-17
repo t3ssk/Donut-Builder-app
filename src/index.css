@@ -49,4 +49,6 @@ table {
 
 body {
   font-family: Raleway, sans-serif;
+  overflow-x: hidden;
+  width: 100vw;
 }

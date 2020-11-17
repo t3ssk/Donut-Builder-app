@@ -1,0 +1,52 @@
+.Objednavka {
+    padding: 40px 0px;
+    font-size: 18px;
+}
+p {
+    padding: 10px;
+}
+.Objednavka strong{
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.cena {
+    border-top: 1px solid #42B9C2;
+    color: #42B9C2;
+}
+
+.Active {
+    position: fixed;
+    left: 50%;
+    opacity: 1;
+    transform: translateY(0vh);
+    transition: all 0.3s ease-out;
+}
+
+.Passive {
+    transform: translateY(-100vh);
+    transition: all 0.s ease-in;
+    opacity: 0;
+}
+
+.Objednavka button {
+    margin-left: 80px;
+    border: 2px solid #a684df;
+    color: #a684df;
+}
+
+button.koupit{
+    padding:  9px 19px;
+    background: linear-gradient(183deg, rgba(229,197,255,1) 0%, rgba(169,239,255,1) 100%);
+    color:  #19818f;
+    border: none;
+}
+button.koupit:hover{
+    background: linear-gradient(183deg, rgb(213, 183, 238) 0%, rgb(161, 227, 241) 100%);
+}
+
+button.koupit:active{
+    background: white;
+    border: 2px solid #46cde0;
+    color:  #46cde0; 
+}

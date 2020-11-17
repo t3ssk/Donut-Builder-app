@@ -2,16 +2,24 @@ import React from 'react';
 import {DonutIngredients} from '../../components/Donut/DonutIngredients/DonutIngredients';
 import {DonutControls} from '../../components/Donut/DonutControls/DonutControls';
 import classes from './DonutBuilder.module.css';
-import {Modal} from '../../components/UI/Modal/Modal'
+import {Objednavka} from '../../components/Donut/Objednavka/Objednavka'
+
 
 export default class DonutBuilder extends React.Component {
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
         this.handleRemove = this.handleRemove.bind(this)
+        this.handleBuy = this.handleBuy.bind(this)
+        this.handleHide = this.handleHide.bind(this)
     }
     state = {
         total: 0,
+        finalOrder: {icing: {cena: 0}, topping:{cena: 0}, napln: {cena: 0}},
+        prevClicked: "",
+        prevPrice: 0,
+        koupit: false,
+        modal: false,
         icing: {
             pink: {
                 id: 1,  
@@ -92,8 +100,13 @@ export default class DonutBuilder extends React.Component {
             stateCopy[type][typ].bought = false
         })
         stateCopy[type][value].bought = true
-       tots = stateCopy.total += stateCopy[type][value].price
-        this.setState({...stateCopy,total: tots})
+       
+      
+        stateCopy.finalOrder[type] = {typ: value, cena: stateCopy[type][value].price}
+         stateCopy.total += stateCopy[type][value].price
+        
+         stateCopy.total =  stateCopy.finalOrder.icing.cena + stateCopy.finalOrder.topping.cena + stateCopy.finalOrder.napln.cena
+        this.setState({...stateCopy})
     }
 
     handleRemove(){
@@ -106,10 +119,17 @@ export default class DonutBuilder extends React.Component {
         Object.keys(oldNapln).forEach(item=>oldNapln[item].bought=false)
 
   
-        this.setState({icing: oldIcing, topping: oldTopping, napln: oldNapln, total: 0})
+        this.setState({icing: oldIcing, topping: oldTopping, napln: oldNapln, total: 0, finalOrder: {icing: {cena: 0}, topping:{cena: 0}, napln: {cena: 0}}})
 
     }
 
+    handleBuy(){
+        this.setState({koupit: true, modal:true})
+
+    }
+    handleHide(){
+        this.setState({koupit: false, modal:false})
+    }
     render(){
         let poleva = Object.keys(this.state.icing).find(key=>{return this.state.icing[key].bought===true})
         let nahoru = Object.keys(this.state.topping).find(key=>{return this.state.topping[key].bought===true})
@@ -119,11 +139,15 @@ export default class DonutBuilder extends React.Component {
 
         return(
             <React.Fragment>
-                <Modal></Modal>
+           
+               <Objednavka order={this.state.finalOrder} total={this.state.total} showModal = {this.state.modal} hideModal={this.handleHide}
+                   
+               />
               <DonutIngredients icing={poleva} topping={nahoru} napln={plnka}/>
-              {sum === 0 ? "" : <div className={classes.price}>Zaplatíš {this.state.total} korun</div>}
-             <DonutControls icing={this.state.icing} topping={this.state.topping} napln={this.state.napln} handleChange={this.handleChange} handleReset={this.handleRemove} />
-            </React.Fragment>
+              {sum === 0 || this.state.koupit === true ? "" : <div className={classes.price}>Zaplatíš {this.state.total} korun</div>}
+             <DonutControls icing={this.state.icing} topping={this.state.topping} napln={this.state.napln} handleChange={this.handleChange} handleReset={this.handleRemove} koupit={this.handleBuy}/>
+             
+             </React.Fragment>
         )
     }
 }

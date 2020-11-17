@@ -56,7 +56,8 @@ export const DonutControls = (props) => {
             
             <br></br>
             {polevaCheck && <React.Fragment><button type="button" onClick={()=>{setNaplnCheck(false); setToppingCheck(false); setPolevaCheck(false); props.handleReset()}}>začni znovu</button> 
-                <button type="button" className={styles.order}>OBJEDNAT</button>
+                <button type="button" className={styles.order} onClick={props.koupit}>OBJEDNAT</button>
+                
             </React.Fragment>
             
             }
