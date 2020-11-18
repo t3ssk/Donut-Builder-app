@@ -7,7 +7,7 @@ import {NavigationItems} from '../Navigation-items/NavgationItems'
 export const Toolbar = (props) => {
     return(
     <React.Fragment>
-        <div onClick={props.onClick} class={styles.Toggler}>
+        <div onClick={props.onClick} className={styles.Toggler}>
           <Toggler/>
         </div>
     <header className={styles.Toolbar}>

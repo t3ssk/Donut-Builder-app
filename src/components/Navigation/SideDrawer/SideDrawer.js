@@ -4,6 +4,7 @@ import {Logo} from '../Logo/Logo'
 import {NavigationItems} from '../Navigation-items/NavgationItems'
 import {Backdrop} from '../../UI/Backdrop/Backdrop'
 import ClearIcon from '@material-ui/icons/Clear';
+import PropTypes from 'prop-types'
 
 
 export const SideDrawer = (props) => {
@@ -22,4 +23,9 @@ export const SideDrawer = (props) => {
                 </nav>
         </div>
     </React.Fragment>)
+}
+
+SideDrawer.propTypes = {
+    shown: PropTypes.bool,
+    handleHide: PropTypes.func
 }

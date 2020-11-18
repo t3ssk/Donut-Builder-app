@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styles from './DonutControls.module.css'
+import PropTypes from 'prop-types'
 
 
 export const DonutControls = (props) => {
@@ -64,4 +65,11 @@ export const DonutControls = (props) => {
 
         </div>
     )
+}
+
+DonutControls.propTypes = {
+    icing: PropTypes.object,
+    topping: PropTypes.object,
+    napln: PropTypes.object,
+    koupit: PropTypes.func
 }

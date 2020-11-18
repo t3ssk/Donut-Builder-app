@@ -2,14 +2,21 @@ import React from 'react';
 import styles from './Modal.module.css'
 import {Backdrop} from '../Backdrop/Backdrop'
 
-export const Modal = (props) => {
-    return(
+
+export class Modal extends React.Component {
+
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.show !== this.props.show
+    }
+
+
+   render(){return(
         <React.Fragment>
-        <Backdrop show={props.show} handleHide={props.handleHide}/>
+        <Backdrop show={this.props.show} handleHide={this.props.handleHide}/>
         <div className={styles.Modal}>
             <h2>Skvělá volba!</h2>
-            {props.children}
+            {this.props.children}
         </div>
         </React.Fragment>
-    )
+    )}
 }

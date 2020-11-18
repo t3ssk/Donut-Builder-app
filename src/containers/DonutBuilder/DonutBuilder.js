@@ -140,9 +140,7 @@ export default class DonutBuilder extends React.Component {
         return(
             <React.Fragment>
            
-               <Objednavka order={this.state.finalOrder} total={this.state.total} showModal = {this.state.modal} hideModal={this.handleHide}
-                   
-               />
+               <Objednavka order={this.state.finalOrder} total={this.state.total} showModal = {this.state.modal} hideModal={this.handleHide}/>
               <DonutIngredients icing={poleva} topping={nahoru} napln={plnka}/>
               {sum === 0 || this.state.koupit === true ? "" : <div className={classes.price}>Zaplatíš {this.state.total} korun</div>}
              <DonutControls icing={this.state.icing} topping={this.state.topping} napln={this.state.napln} handleChange={this.handleChange} handleReset={this.handleRemove} koupit={this.handleBuy}/>
