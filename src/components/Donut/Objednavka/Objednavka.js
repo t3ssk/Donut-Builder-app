@@ -1,7 +1,8 @@
 import React from 'react';
 import {Modal} from '../../UI/Modal/Modal'
 import styles from './Objednavka.module.css'
-
+import {CancelButton} from '../../UI/Buttons/CancelButton'
+import {SubmitButton} from '../../UI/Buttons/SubmitButton'
 
 export const Objednavka = (props) => {
     const obj = props.order
@@ -17,8 +18,8 @@ export const Objednavka = (props) => {
                 {props.total && <p className={styles.cena}><strong>Cena: </strong> {props.total} Kč</p>}
 
                 <p className={styles.Pokracovat}>Pokračovat k objednávce?</p>
-                <button type="button" onClick={props.hideModal}>Ještě ne</button>
-                <button type="button" className={styles.koupit}>Už si objednám</button>
+                <CancelButton onClick={props.hideModal}/>
+                <SubmitButton/>
             </div>
             </div>
         </Modal></div>

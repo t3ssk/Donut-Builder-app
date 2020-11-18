@@ -1,0 +1,51 @@
+
+button {
+    margin: 20px;
+    font-size: 12px;
+    text-transform: uppercase ;
+    background: rgb(255, 255, 255);
+    border: 2px solid   #46cde0;
+    padding: 5px 15px;
+    border-radius: 20px;
+    text-align: center;
+    color:   #46cde0;
+    font-weight: 900;
+    box-shadow: 0 0 15px rgba(128, 128, 128, 0.062);
+    cursor: pointer;
+}
+
+button:hover{
+    background: linear-gradient(183deg, rgba(229,197,255,1) 0%, rgba(169,239,255,1) 100%);
+    color: white;
+    border-color: white;
+}
+button:active{
+    background: linear-gradient(183deg, rgb(213, 183, 238) 0%, rgb(161, 227, 241) 100%);
+    color: white;
+    border-color: white;
+    outline: none;
+}
+button:focus {outline:0;}
+
+button.Submit{
+    padding:  9px 19px !important;
+    background: linear-gradient(183deg, rgba(229,197,255,1) 0%, rgba(169,239,255,1) 100%) !important;
+    color:  #19818f !important;
+    border: none !important;
+}
+button.Submit:hover{
+    background: linear-gradient(183deg, rgb(213, 183, 238) 0%, rgb(161, 227, 241) 100%);
+}
+button.Submit:active{
+    background: white;
+    border: 2px solid #46cde0;
+    color:  #46cde0; 
+}
+
+.cancel{
+        margin-left: 80px;
+        border: 2px solid #a684df !important;
+        color: #a684df !important;
+
+    
+}

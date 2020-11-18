@@ -1,0 +1,36 @@
+.Toolbar {
+    width: 100%;
+    height: 56px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color:#E2C7FF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+   
+}
+
+.Toolbar nav {
+    height: 100%;
+}
+
+.Toggler {
+    display:none;
+}
+
+@media screen and (max-width: 500px){
+    .Toggler {
+        width: 56px;
+        position: fixed;
+        top:10px;
+        left: 10px;
+        display: block;
+        cursor: pointer;
+    }
+    .Toolbar {
+        display: none;
+    }
+}

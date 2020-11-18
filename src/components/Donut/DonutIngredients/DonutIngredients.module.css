@@ -14,7 +14,7 @@ section{
     width: 100vw;
     height: 500px;
     background: rgb(229,197,255);
-    background: linear-gradient(183deg, rgba(229,197,255,1) 0%, rgba(169,239,255,1) 100%);
+    background: linear-gradient(180deg, rgba(229,197,255,1) 0%, rgba(169,239,255,1) 100%);
 }
 
 aside{
@@ -62,6 +62,11 @@ aside{
        margin-top: -70px;
    }
 
+}
+@media (max-width: 500px) {
+    .donut {
+        margin-top: -20px;
+    }
 }
 
 @media only screen and (max-width: 380px){

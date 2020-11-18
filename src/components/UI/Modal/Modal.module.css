@@ -33,3 +33,13 @@
     }
 
 }
+@media (max-width: 600px) {
+    .Modal {
+        width: 90vw;
+        left: calc(50% - 230px);
+    }
+    .Modal h2{
+        font-size: 35px;
+    }
+
+}
