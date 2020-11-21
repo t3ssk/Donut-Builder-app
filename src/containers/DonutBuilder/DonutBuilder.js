@@ -3,15 +3,17 @@ import {DonutIngredients} from '../../components/Donut/DonutIngredients/DonutIng
 import {DonutControls} from '../../components/Donut/DonutControls/DonutControls';
 import classes from './DonutBuilder.module.css';
 import {Objednavka} from '../../components/Donut/Objednavka/Objednavka'
+import withErroHandler from '../../hoc/withErrorHandler/withErrorHandler'
+import axios from '../../axios-orders'
 
-
-export default class DonutBuilder extends React.Component {
+class DonutBuilder extends React.Component {
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
         this.handleRemove = this.handleRemove.bind(this)
         this.handleBuy = this.handleBuy.bind(this)
         this.handleHide = this.handleHide.bind(this)
+        this.handlePurchase = this.handlePurchase.bind(this)
     }
     state = {
         total: 0,
@@ -20,6 +22,7 @@ export default class DonutBuilder extends React.Component {
         prevPrice: 0,
         koupit: false,
         modal: false,
+        loading: false,
         icing: {
             pink: {
                 id: 1,  
@@ -93,7 +96,6 @@ export default class DonutBuilder extends React.Component {
 
         const type = e.target.name
         const value = e.target.value
-        let tots = this.state.total
         const otherTypes = Object.keys(this.state[type])
         const stateCopy = {...this.state}
         otherTypes.forEach(typ=>{ 
@@ -130,6 +132,24 @@ export default class DonutBuilder extends React.Component {
     handleHide(){
         this.setState({koupit: false, modal:false})
     }
+    handlePurchase(){
+        console.log(this.state.loading);
+        this.setState({loading: true})
+  
+       const data = {order: this.state.finalOrder,
+                     price: this.state.total,
+                        customer: {
+                            name: 'Tereza Konečná', 
+                            address: {
+                                street: 'U vysočanského pivovaru 709',
+                                zip: '19000',
+                                country: 'Czech Rep'
+                            },
+                            email: 'te.konecna@email.com'
+                        },
+                     deliveryMethod: 'fastest'}
+        axios.post('/orders.json', data).then(response=>{this.setState({loading: false, koupit: false, modal: false})}).catch((error)=>{this.setState({loading: false,  koupit: false,  modal: false})})
+    }
     render(){
         let poleva = Object.keys(this.state.icing).find(key=>{return this.state.icing[key].bought===true})
         let nahoru = Object.keys(this.state.topping).find(key=>{return this.state.topping[key].bought===true})
@@ -139,8 +159,8 @@ export default class DonutBuilder extends React.Component {
 
         return(
             <React.Fragment>
-           
-               <Objednavka order={this.state.finalOrder} total={this.state.total} showModal = {this.state.modal} hideModal={this.handleHide}/>
+
+               <Objednavka order={this.state.finalOrder} total={this.state.total} showModal = {this.state.modal} hideModal={this.handleHide} handleBuy={this.handlePurchase} isLoading={this.state.loading}/>
               <DonutIngredients icing={poleva} topping={nahoru} napln={plnka}/>
               {sum === 0 || this.state.koupit === true ? "" : <div className={classes.price}>Zaplatíš {this.state.total} korun</div>}
              <DonutControls icing={this.state.icing} topping={this.state.topping} napln={this.state.napln} handleChange={this.handleChange} handleReset={this.handleRemove} koupit={this.handleBuy}/>
@@ -149,3 +169,5 @@ export default class DonutBuilder extends React.Component {
         )
     }
 }
+
+export default withErroHandler(DonutBuilder, axios)
