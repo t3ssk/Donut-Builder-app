@@ -6,6 +6,11 @@
     align-items: center;
     height: 100%;
 }
+.active {
+    border-bottom: 4px solid #abeefe;
+    color: white;
+    transition: border 0.3s ease-in; 
+}
 
 @media (max-width: 501px) {
     .NavigationItems {

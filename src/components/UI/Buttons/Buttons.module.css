@@ -28,18 +28,18 @@ button:active{
 button:focus {outline:0;}
 
 button.Submit{
-    padding:  9px 19px !important;
-    background: linear-gradient(183deg, rgba(229,197,255,1) 0%, rgba(169,239,255,1) 100%) !important;
-    color:  #19818f !important;
-    border: none !important;
+    padding:  9px 19px;
+    background: linear-gradient(183deg, rgba(229,197,255,1) 0%, rgba(169,239,255,1) 100%);
+    color:  #19818f ;
+    border: none;
 }
 button.Submit:hover{
-    background: linear-gradient(183deg, rgb(213, 183, 238) 0%, rgb(161, 227, 241) 100%);
+    background: linear-gradient(183deg, rgb(197, 167, 223) 0%, rgb(161, 227, 241) 50%);
+    color: white;
 }
 button.Submit:active{
-    background: white;
-    border: 2px solid #46cde0;
-    color:  #46cde0; 
+    background: linear-gradient(183deg, rgb(162, 127, 192) 0%, rgb(118, 183, 197) 50%);
+    color:  white; 
 }
 
 .cancel{

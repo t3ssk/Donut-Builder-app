@@ -1,0 +1,48 @@
+.Contact{
+    width: 70%;
+    margin: auto;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.Contact h4{
+    font-family: Shrikhand, serif;
+    font-weight: 700;
+    font-size: 25px;
+    color: rgb(117, 117, 117);
+    filter: drop-shadow(0 3px 0 #E2C7FF);
+    padding-bottom: 30px;
+}
+
+.Image{
+    width: 100vw;
+    margin-left: -21.5%;
+    overflow-x: hidden;
+}
+
+.Image img{
+    width: 100%;
+}
+
+.Contact select {
+        display: block;
+        padding: 10px 50px;
+        margin: -5px 0px;
+        border: 1px solid rgb(197, 197, 197);
+        border-radius: 5px;
+        width: 100%;
+    
+}
+
+
+@media screen and (max-width: 600px){
+    .Contact{
+        margin-left: 6% ;
+    }
+    .Contact input {
+        width: 100%;
+    }
+    .Contact select {
+        width: 100%;
+    }
+}

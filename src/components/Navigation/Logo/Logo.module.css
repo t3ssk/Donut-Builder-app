@@ -12,7 +12,12 @@
 .Logo__name{
     font-family: Shrikhand;
     font-size: 30px;
-    margin-left: -30px;
+    margin-left: 20px;
+    margin-top: -45px;
     color: #70d0e7;
     filter: drop-shadow(3px 3px 0px white);
+}
+
+.Logo a{
+    text-decoration: none;
 }

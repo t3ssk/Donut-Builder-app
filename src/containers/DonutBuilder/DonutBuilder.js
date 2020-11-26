@@ -5,7 +5,9 @@ import classes from './DonutBuilder.module.css';
 import {Objednavka} from '../../components/Donut/Objednavka/Objednavka'
 import withErroHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import axios from '../../axios-orders'
-
+import {Route, Switch} from 'react-router-dom'
+import Checkout from '../Checkout/Checkout'
+import Orders from '../Orders/Orders'
 class DonutBuilder extends React.Component {
     constructor(props){
         super(props)
@@ -127,16 +129,31 @@ class DonutBuilder extends React.Component {
 
     handleBuy(){
         this.setState({koupit: true, modal:true})
-
     }
     handleHide(){
         this.setState({koupit: false, modal:false})
-    }
+    } 
+    
+   
     handlePurchase(){
         console.log(this.state.loading);
         this.setState({loading: true})
-  
-       const data = {order: this.state.finalOrder,
+        console.log(this.state.finalOrder)
+        let icing = null
+        if(this.state.finalOrder.icing.typ){
+            icing = this.state.finalOrder.icing.typ
+        }
+        let topping = null
+        if(this.state.finalOrder.topping.typ){
+            topping = this.state.finalOrder.topping.typ
+        }
+        let napln = null
+        if(this.state.finalOrder.topping.typ){
+             napln = this.state.finalOrder.napln.typ
+        }
+        const total = this.state.total
+        this.props.history.push(`/checkout?icing=${icing}&topping=${topping}&napln=${napln}&total=${total}`)
+       /* const data = {order: this.state.finalOrder,
                      price: this.state.total,
                         customer: {
                             name: 'Tereza Konečná', 
@@ -149,7 +166,7 @@ class DonutBuilder extends React.Component {
                         },
                      deliveryMethod: 'fastest'}
         axios.post('/orders.json', data).then(response=>{this.setState({loading: false, koupit: false, modal: false})}).catch((error)=>{this.setState({loading: false,  koupit: false,  modal: false})})
-    }
+ */    }
     render(){
         let poleva = Object.keys(this.state.icing).find(key=>{return this.state.icing[key].bought===true})
         let nahoru = Object.keys(this.state.topping).find(key=>{return this.state.topping[key].bought===true})
@@ -160,11 +177,12 @@ class DonutBuilder extends React.Component {
         return(
             <React.Fragment>
 
-               <Objednavka order={this.state.finalOrder} total={this.state.total} showModal = {this.state.modal} hideModal={this.handleHide} handleBuy={this.handlePurchase} isLoading={this.state.loading}/>
+               <Objednavka order={this.state.finalOrder} total={this.state.total} showModal = {this.state.modal} hideModal={this.handleHide} handleBuy={this.handlePurchase} isLoading={this.state.loading} />
               <DonutIngredients icing={poleva} topping={nahoru} napln={plnka}/>
               {sum === 0 || this.state.koupit === true ? "" : <div className={classes.price}>Zaplatíš {this.state.total} korun</div>}
              <DonutControls icing={this.state.icing} topping={this.state.topping} napln={this.state.napln} handleChange={this.handleChange} handleReset={this.handleRemove} koupit={this.handleBuy}/>
-             
+
+             <Route path='/checkout' component={Checkout}/>
              </React.Fragment>
         )
     }

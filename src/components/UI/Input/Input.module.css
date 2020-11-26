@@ -1,0 +1,39 @@
+.InputWrapper{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.Label {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    background-color: white;
+    padding: 2px;
+}
+
+.Input {
+    display: block;
+    padding: 10px 50px;
+    margin: -5px -10px;
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 5px;
+    box-sizing: border-box ;
+}
+
+.Input:invalid {
+    border: 2px solid #E2C7FF;
+    border-radius: 5px;
+}
+.Input {
+    width: 93.5%;
+}
+
+.Input:focus{
+    outline: none;
+    border: 2px solid #abeefe;
+}
+
+select.Input  {
+    width: 93.5%;
+    margin-left: -10px;
+}

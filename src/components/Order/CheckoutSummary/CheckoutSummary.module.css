@@ -1,0 +1,70 @@
+.CheckoutSummary{
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    padding: 40px 0;
+    border: 1px solid rgba(212, 212, 212, 0.356);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(128, 128, 128, 0.123);
+    margin-top: 130px;
+}
+
+.CheckoutSummary h1 {
+    font-family: Shrikhand, serif;
+    font-weight: 700;
+    font-size: 35px;
+    font-style: italic;
+    letter-spacing: 2px;
+    color: rgb(117, 117, 117);
+    filter: drop-shadow(0 3px 0 #abeefe);
+}
+
+.Donut section{
+    width: 50%;
+    height: 300px;
+    margin:auto;
+    background: white;
+}
+.Donut section img {
+    width: 50%;
+}
+
+.Donut aside {
+    margin-top: -350px;
+    margin-left: 160px;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 0 20px rgba(128, 128, 128, 0.171);
+} 
+
+@media screen and (max-width: 770px){
+    .Donut section {
+        margin-left: 0px;
+    }
+}
+
+@media screen and (max-width: 510px){
+    .Donut section{
+        width: 75%;
+        height: 200px;
+        overflow: hidden;
+        msrgin-left: 0;
+    }
+    .Donut section img {
+        margin-left: -70px;
+    }
+    .CheckoutSummary h1{
+        font-size: 25px;
+        width: 18ch;
+        text-align: center;
+    }
+
+    .Donut aside{
+        margin-top: -220px;
+        margin-left: 10px;
+    }
+    .CheckoutSummary button{
+        margin: 20px auto;
+        display: block;
+    }
+}
