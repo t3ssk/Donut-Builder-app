@@ -27,6 +27,9 @@ button:active{
 }
 button:focus {outline:0;}
 
+
+
+
 button.Submit{
     padding:  9px 19px;
     background: linear-gradient(183deg, rgba(229,197,255,1) 0%, rgba(169,239,255,1) 100%);
@@ -42,6 +45,13 @@ button.Submit:active{
     color:  white; 
 }
 
+button.Disabled  {
+    background: white;
+    border: 2px solid rgba(128, 128, 128, 0.692);
+    color: rgba(128, 128, 128, 0.692);
+    cursor: not-allowed;
+    pointer-events: none;
+}
 .cancel{
         margin-left: 80px;
         border: 2px solid #a684df !important;

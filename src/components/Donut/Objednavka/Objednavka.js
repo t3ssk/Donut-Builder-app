@@ -4,12 +4,14 @@ import styles from './Objednavka.module.css'
 import {CancelButton} from '../../UI/Buttons/CancelButton'
 import {SubmitButton} from '../../UI/Buttons/SubmitButton'
 import {Spinner} from '../../UI/Spinner/Spinner'
-export class Objednavka extends React.Component {
+import {connect} from 'react-redux'
+
+class Objednavka extends React.Component {
     shouldComponentUpdate(nextProps, nextState){
         return nextProps.showModal !== this.props.showModal
     }
    
-    render() {const obj = this.props.order
+    render() {const obj = this.props.finalOrder
         
            let orderText = ( 
             <div className={styles.Objednavka}>
@@ -37,3 +39,10 @@ export class Objednavka extends React.Component {
     )
 }
 }
+
+const mapStateToProps = (state) => {
+    return {finalOrder : state.finalOrder,
+            total: state.total}
+
+}
+export default connect(mapStateToProps)(Objednavka)

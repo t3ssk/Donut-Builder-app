@@ -37,3 +37,9 @@ select.Input  {
     width: 93.5%;
     margin-left: -10px;
 }
+
+.Invalid, .Input:invalid {
+    border: 2px solid rgb(238, 183, 229);
+    background-color:#e2c7ff31 ;
+}
+
