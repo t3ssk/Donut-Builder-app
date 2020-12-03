@@ -8,12 +8,14 @@ import {createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import donutReducer from './store/reducers/donutReducer'
 import customerReducer from './store/reducers/customerReducer'
 import {orderReducer} from './store/reducers/orderReducer'
+import {fetchReducer} from './store/reducers/fetchReducer'
 import thunk from 'redux-thunk'
 
 const reducer = combineReducers({
   donut: donutReducer,
   customer: customerReducer,
-  order: orderReducer
+  order: orderReducer,
+  fetched: fetchReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

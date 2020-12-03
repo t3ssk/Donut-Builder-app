@@ -4,6 +4,7 @@ import styles from './Orders.module.css'
 import axios from '../../axios-orders'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import {connect} from 'react-redux'
+import * as appActions from '../../store/actions/index'
 class Orders extends Component {
     
     state = {
@@ -12,17 +13,18 @@ class Orders extends Component {
     }
    
     componentDidMount(){
-        this.setState({loading:true})
-        axios.get('/orders.json').then((response)=>{
+        /* axios.get('/orders.json').then((response)=>{
             const stateOrdersCp = []
             for(let key in response.data){
                 stateOrdersCp.push({...response.data[key], id: key})
             }
             this.setState({orders: stateOrdersCp, loading: false})
-        }).catch((err)=>{console.log(err); this.setState({loading:false})})
-    }
+        }).catch((err)=>{console.log(err); this.setState({loading:false})})*/
+        this.props.fetchOrdersInit()
+    } 
     render(){
-        const orderMap = this.state.orders.map(item=>{
+        console.log(this.props.orders)
+        const orderMap = this.props.orders.map(item=>{
             return <Order key={item.id} icing={item.order.icing.typ} topping={item.order.topping.typ} napln={item.order.napln.typ} total={+item.total}/>})
 
         return(
@@ -36,8 +38,15 @@ class Orders extends Component {
 
 const mapStateToProps = (state) => {
     return { 
-        orders: state.order.orders,
-      total: state.customer.total}
+        orders: state.fetched.orders,
+      //total: state.customer.total}
   }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        //startAction: ()=>{dispatch(appActions.fetchOrdersStart())},
+        fetchOrdersInit: ()=>{dispatch(appActions.fetchOrdersInit())}
+    }
+}
 
-export default connect(mapStateToProps)(withErrorHandler(Orders, axios))
+export default connect(mapStateToProps,mapDispatchToProps)( withErrorHandler(Orders, axios))

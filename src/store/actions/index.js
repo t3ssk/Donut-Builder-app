@@ -12,3 +12,9 @@ export {
     contactOnSubmit
 } from './customerActions'
 
+export {
+    fetchOrdersSuccess,
+    fetchOrdersFailure,
+    fetchOrdersInit,
+    fetchOrdersStart
+} from './fetchActions.js'

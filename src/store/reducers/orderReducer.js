@@ -23,7 +23,6 @@ export const orderReducer = (state = initialState, action) => {
                             orderId: action.orderId,
                             order: action.orderData}]
                     }
-                
             case 'PURCHASE_DONUT_FAILURE':
                 return {
                     ...state,

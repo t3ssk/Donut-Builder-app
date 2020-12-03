@@ -20,8 +20,8 @@ export const purchaseDonut = (orderData) => {
     return dispatch => {
         dispatch(purchaseDonutStart())
         axios.post('/orders.json', orderData)
-        .then(response=>{console.log(response.data)
-                            dispatch(purchaseDonutSuccess(response.data, orderData))})
+        .then(response=>{
+        dispatch(purchaseDonutSuccess(response.data.name, orderData))})
         .catch((error)=>{dispatch(purchaseDonutFailure(error))})
     }
 }
