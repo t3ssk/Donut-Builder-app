@@ -3,12 +3,14 @@ import Order from './Order'
 import styles from './Orders.module.css'
 import axios from '../../axios-orders'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
+import {connect} from 'react-redux'
 class Orders extends Component {
-
+    
     state = {
         orders: [],
         loading: false
     }
+   
     componentDidMount(){
         this.setState({loading:true})
         axios.get('/orders.json').then((response)=>{
@@ -20,9 +22,8 @@ class Orders extends Component {
         }).catch((err)=>{console.log(err); this.setState({loading:false})})
     }
     render(){
-        console.log(this.state)
         const orderMap = this.state.orders.map(item=>{
-            return <Order key={item.id} icing={item.order.icing} topping={item.order.topping} napln={item.order.napln} total={+item.order.total}/>})
+            return <Order key={item.id} icing={item.order.icing.typ} topping={item.order.topping.typ} napln={item.order.napln.typ} total={+item.total}/>})
 
         return(
         <div className={styles.Orders}>
@@ -33,4 +34,10 @@ class Orders extends Component {
     }
 }
 
-export default withErrorHandler(Orders, axios)
+const mapStateToProps = (state) => {
+    return { 
+        orders: state.order.orders,
+      total: state.customer.total}
+  }
+
+export default connect(mapStateToProps)(withErrorHandler(Orders, axios))

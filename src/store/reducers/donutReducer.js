@@ -3,7 +3,7 @@ const initialState = {
     finalOrder: {icing: {cena: 0}, topping:{cena: 0}, napln: {cena: 0}},
 }
 
-const reducer = (state=initialState, action) => {
+const donutReducer = (state=initialState, action) => {
     switch (action.type) {
         case 'GET_ORDER':
             console.log(action.finalOrder)
@@ -15,4 +15,4 @@ const reducer = (state=initialState, action) => {
     }
 }
 
-export default reducer
+export default donutReducer

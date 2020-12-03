@@ -4,11 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
-import reducer from './store/reducers/donutReducer'
+import {createStore, applyMiddleware, compose, combineReducers } from 'redux'
+import donutReducer from './store/reducers/donutReducer'
+import customerReducer from './store/reducers/customerReducer'
+import {orderReducer} from './store/reducers/orderReducer'
+import thunk from 'redux-thunk'
 
+const reducer = combineReducers({
+  donut: donutReducer,
+  customer: customerReducer,
+  order: orderReducer
+})
 
-const store = createStore(reducer)
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)
+))
+
 
 ReactDOM.render(
   <Provider store = {store}>

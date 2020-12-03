@@ -41,8 +41,8 @@ class Objednavka extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {finalOrder : state.finalOrder,
-            total: state.total}
+    return {finalOrder : state.donut.finalOrder,
+            total: state.donut.total}
 
 }
 export default connect(mapStateToProps)(Objednavka)

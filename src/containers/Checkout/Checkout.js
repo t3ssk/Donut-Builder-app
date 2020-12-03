@@ -27,8 +27,8 @@ import {connect} from 'react-redux'
 
 const mapStateToProps = state =>{
     return {
-        finalOrder: state.finalOrder,
-        total: state.total
+        finalOrder: state.donut.finalOrder,
+        total: state.donut.total
     }
 }
 export default connect(mapStateToProps)(Checkout)

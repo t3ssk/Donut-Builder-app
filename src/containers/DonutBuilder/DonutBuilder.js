@@ -8,7 +8,7 @@ import axios from '../../axios-orders'
 import {Route} from 'react-router-dom'
 import Checkout from '../Checkout/Checkout'
 import {connect} from 'react-redux'
-
+import * as appActions from '../../store/actions/index'
 
 class DonutBuilder extends React.Component {
     constructor(props){
@@ -193,15 +193,15 @@ class DonutBuilder extends React.Component {
 
 //this.props.getTotal(this.state.total)
 const mapStateToProps = (state) => {
-    return {finalOrder : state.finalOrder,
-            total: state.total}
+    return {finalOrder : state.donut.finalOrder,
+            total: state.donut.total}
 
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        onGetOrder: (order) => dispatch({type: 'GET_ORDER', finalOrder: order}),
-        getTotal: (total)=>dispatch({type: 'GET_TOTAL', total: total})
+        onGetOrder: (order) => dispatch(appActions.getOrder(order)),
+        getTotal: (total)=>dispatch(appActions.getTotal(total))
     }
 } 
 

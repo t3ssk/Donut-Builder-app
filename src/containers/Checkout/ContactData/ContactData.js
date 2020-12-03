@@ -6,6 +6,9 @@ import axios from '../../../axios-orders'
 import {Spinner} from '../../../components/UI/Spinner/Spinner' 
 import Input from '../../../components/UI/Input/Input'
 import {connect} from 'react-redux'
+import * as appActions from '../../../store/actions/customerActions'
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
+import {Redirect} from 'react-router-dom'
 class ContactData extends Component {
     constructor(props){
         super(props)
@@ -21,11 +24,11 @@ class ContactData extends Component {
                 label: 'Jméno',
                 name:'name',
                      },
-                value: "",
                 touched: false,
                 rules: {
                     required: true
                 },
+                value: "",
                 valid: false
                 }, 
             street: {
@@ -35,11 +38,11 @@ class ContactData extends Component {
                 label: 'Ulice',
                 name:'street',
                      },
-                value: "",
                 touched: false,
                 rules: {
                     required: true
                 },
+                value: "",
                 valid: false
             },
             zip: {
@@ -49,13 +52,13 @@ class ContactData extends Component {
                 label: 'PSČ',
                 name:'zip',
                      },
-                value: "",
                 touched: false,
                 rules: {
                     required: true,
                     minLength: 5, 
-                    maxLength: 5
+                    maxLength: 6
                 },
+                value: "",
                 valid: false
             }, 
             city: {
@@ -65,11 +68,11 @@ class ContactData extends Component {
                 label: 'Město',
                 name:'city',
                      },
-                value: "",
                 touched: false,
                 rules: {
                     required: true
                 },
+                value: "",
                 valid: false
             },
             email: {
@@ -79,26 +82,27 @@ class ContactData extends Component {
                 label: 'e-mail',
                 name:'email',
                      },
-                value: "",
                 touched: false,
                 rules: {
                     required: true,
                     regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/gi
                 },
+                value: "",
                 valid: false
             },
             deliveryMethod: {
                 inputType: 'select',
                 elementConfig: {
                 label: 'Možnosti doručení',
-                options: [{value: '', display: 'Vyber možnost'},
+                options: [
+                {value: "", display: 'Vyber rychlost doručení'},
                 {value: 'slow', display: 'Nespěchám (2-3 hodiny)'},
                 {value: 'normal', display: 'Normální doručovací čas (1 hodina)'}, 
                 {value: 'fast', display: 'Umírám hlady (30min)'}
                 ],
+                value: "",
                 name:'delivery',
                      },
-                value: "",
                 rules: {
                     required: true,
                     minLength: 2,
@@ -108,21 +112,22 @@ class ContactData extends Component {
             },
             
         },
-     
-    loading: false,
     isValid: false }
 
+    componentWillMount(){
+        this.props.updatePurchased()
+    }
      handlePurchase (e) {
-        this.setState({loading: true}) 
+
         e.preventDefault()
         let customerData = {} 
         for (let key in this.state.orderForm){
             customerData[key]= this.state.orderForm[key].value}
         
-        const data = {order: this.props.finalOrder,
+        const data = {order: this.props.finalOrder, total: this.props.total,
         orderForm: customerData}
-        axios.post('/orders.json', data).then(response=>{this.setState({loading: false}); this.props.history.push('/')}).catch((error)=>{this.setState({loading: false})})
-            
+        //axios.post('/orders.json', data).then(response=>{this.setState({loading: false}); this.props.history.push('/')}).catch((error)=>{this.setState({loading: false})})
+        this.props.onSubmitInput(data)      
      }  
      checkValidity (value, rules){
     
@@ -145,6 +150,7 @@ class ContactData extends Component {
             const updatedFormElement = { 
                 ...orderFormCP[id]
             };
+            
             updatedFormElement.value = event.target.value;
             if(updatedFormElement.rules)
             {updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.rules)}
@@ -152,17 +158,15 @@ class ContactData extends Component {
             orderFormCP[id] = updatedFormElement;
             let formIsValid = true
             for(let key in orderFormCP){
-                formIsValid = orderFormCP[key].valid && formIsValid 
-                
+                formIsValid = orderFormCP[key].valid && formIsValid
             }
-            console.log(formIsValid)
+            
             
             this.setState({orderForm: orderFormCP, isValid: formIsValid})
 
      }
 
     render(){
-        console.log(this.state)
         const inputArr = []
         for (let key in this.state.orderForm){
 
@@ -170,16 +174,17 @@ class ContactData extends Component {
         }
         
         const inputArrMap = inputArr.map(item => {return <Input key={item.id} inputType={item.config.inputType} 
-        elementConfig={item.config.elementConfig} value={item.config.value} touched={item.config.touched} onChange={(event)=>this.inputChangeHandler(event, item.id)} valid={item.config.valid}/> })
+        elementConfig={item.config.elementConfig} value={item.config.value} touched={item.config.touched} onChange={(event)=>{this.inputChangeHandler(event, item.id); this.props.onChangeInput({[event.target.name]: event.target.value})}} valid={item.config.valid}/> })
         
-       
+        const redirect = <Redirect to='/'/>
         return(
             <div className={styles.Contact}>
                 <h4>Komu máme donut poslat?</h4>
-               {this.state.loading ? <Spinner/> : <form>
+               {this.props.loading ? <Spinner/> : <form>
                    {inputArrMap}
                     <SubmitButton disabled={!this.state.isValid} onClick={this.handlePurchase}/>
                 </form>}
+                {this.props.ordered===true && redirect}
                 <div className={styles.Image}>
                 <img src={Donutio} alt="" /></div>
             </div>
@@ -189,9 +194,23 @@ class ContactData extends Component {
 
 const mapUrlToProps = (state) => {
     return {
-        finalOrder: state.finalOrder,
-        total: state.total
+        finalOrder: state.donut.finalOrder,
+        total: state.donut.total,
+        name: state.customer.name,
+        street: state.customer.street,
+        city: state.customer.city,
+        zip: state.customer.zip,
+        email: state.customer.email,
+        deliveryMethod: state.customer.deliveryMethod,
+        loading: state.order.loading,
+        ordered: state.order.ordered
     }
 }
-
-export default connect(mapUrlToProps)(ContactData)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onChangeInput: (data)=>{dispatch(appActions.contactOnChange(data))},
+        onSubmitInput: (order)=>{dispatch(appActions.purchaseDonut(order))},
+        updatePurchased: ()=>{dispatch(appActions.updatePurchased())}
+    }
+}
+export default connect(mapUrlToProps,mapDispatchToProps)( withErrorHandler(ContactData, axios))
