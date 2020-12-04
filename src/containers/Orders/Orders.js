@@ -5,32 +5,22 @@ import axios from '../../axios-orders'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import {connect} from 'react-redux'
 import * as appActions from '../../store/actions/index'
+import {Spinner} from '../../components/UI/Spinner/Spinner'
 class Orders extends Component {
-    
-    state = {
-        orders: [],
-        loading: false
-    }
+
    
     componentDidMount(){
-        /* axios.get('/orders.json').then((response)=>{
-            const stateOrdersCp = []
-            for(let key in response.data){
-                stateOrdersCp.push({...response.data[key], id: key})
-            }
-            this.setState({orders: stateOrdersCp, loading: false})
-        }).catch((err)=>{console.log(err); this.setState({loading:false})})*/
+     
         this.props.fetchOrdersInit()
     } 
     render(){
-        console.log(this.props.orders)
-        const orderMap = this.props.orders.map(item=>{
+        const orderMap = this.props.orders.reverse().map(item=>{
             return <Order key={item.id} icing={item.order.icing.typ} topping={item.order.topping.typ} napln={item.order.napln.typ} total={+item.total}/>})
 
         return(
         <div className={styles.Orders}>
         <h3>Tvoje objednávky</h3>
-        {orderMap}
+        {this.props.loading ? <Spinner/> : orderMap}
         </div>
         )
     }
@@ -39,6 +29,7 @@ class Orders extends Component {
 const mapStateToProps = (state) => {
     return { 
         orders: state.fetched.orders,
+        loading: state.fetched.loading
       //total: state.customer.total}
   }
 }

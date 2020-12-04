@@ -1,18 +1,24 @@
+import {updateState} from '../utility'
+
 const initialState = {
     orders: [],
     loading: false
 }
 
+const fetchSuccess = (state, action) => {
+    return (state, {orders: [...action.order], loading: false})
+}
+const fetchFail = (state, action) => {
+    return(state, {error: action.error, loading: false})
+}
 export const fetchReducer = (state=initialState, action) => {
     switch (action.type) {
         case 'FETCH_ORDER/START': 
-            return {...state, loading: true}
+            return updateState(state, {loading: true})
         case 'FETCH_ORDER/SUCCESS':
-            return {...state,
-            orders: [...state.orders, ...action.order], 
-            loading: false }
+            return fetchSuccess(state, action)
         case 'FETCH_ORDER/FAIL': 
-            return {...state, error: action.error, loading: false}
+            return fetchFail(state, action)
         default:
          return state;
     }

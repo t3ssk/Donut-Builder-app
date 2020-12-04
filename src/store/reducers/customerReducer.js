@@ -1,3 +1,5 @@
+import {updateState} from '../utility'
+
 const initialState = {
         name: '',
         street: '',
@@ -10,8 +12,7 @@ const initialState = {
 const customerReducer = (state=initialState, action) => {
     switch (action.type) {
         case 'CONTACT/ON_CHANGE':
-            console.log(action.data)
-            return {...state, ...action.data}
+            return updateState(state, action.data)
         case 'CONTACT/ON_SUBMIT':
             return state
         default:

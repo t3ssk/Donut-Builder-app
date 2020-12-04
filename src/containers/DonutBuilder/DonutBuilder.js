@@ -119,7 +119,6 @@ class DonutBuilder extends React.Component {
         let oldIcing = this.state.icing
         let oldTopping = this.state.topping
         let oldNapln = this.state.napln
-        console.log(oldIcing)
         Object.keys(oldIcing).forEach(item=>oldIcing[item].bought=false)
         Object.keys(oldTopping).forEach(item=>oldTopping[item].bought=false)
         Object.keys(oldNapln).forEach(item=>oldNapln[item].bought=false)
@@ -138,7 +137,6 @@ class DonutBuilder extends React.Component {
     
    
     handlePurchase(){
-        console.log(this.state.loading);
         this.setState({loading: true})
         
         /* let icing = null

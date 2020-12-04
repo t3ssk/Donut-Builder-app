@@ -9,11 +9,13 @@ import {connect} from 'react-redux'
 import * as appActions from '../../../store/actions/customerActions'
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import {Redirect} from 'react-router-dom'
+import checkValidity from '../../../utility'
 class ContactData extends Component {
     constructor(props){
         super(props)
         this.handlePurchase = this.handlePurchase.bind(this)
         this.inputChangeHandler = this.inputChangeHandler.bind(this)
+        this.props.updatePurchased()
     }
     state = {
         orderForm: {
@@ -114,9 +116,6 @@ class ContactData extends Component {
         },
     isValid: false }
 
-    componentWillMount(){
-        this.props.updatePurchased()
-    }
      handlePurchase (e) {
 
         e.preventDefault()
@@ -129,21 +128,7 @@ class ContactData extends Component {
         //axios.post('/orders.json', data).then(response=>{this.setState({loading: false}); this.props.history.push('/')}).catch((error)=>{this.setState({loading: false})})
         this.props.onSubmitInput(data)      
      }  
-     checkValidity (value, rules){
-    
-         let isValid = true 
-         if(rules.required){
-             isValid = value.trim() !== "" && isValid
-         }
-         if(rules.minLength){
-             isValid = value.length >= rules.minLength && value.length <= rules.maxLength && isValid
-         }
-
-         if(rules.regex){
-            isValid = rules.regex.test(value)  && isValid
-         }
-         return isValid
-     }
+     
 
      inputChangeHandler (event, id) {
             const orderFormCP = {...this.state.orderForm}
@@ -153,7 +138,7 @@ class ContactData extends Component {
             
             updatedFormElement.value = event.target.value;
             if(updatedFormElement.rules)
-            {updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.rules)}
+            {updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.rules)}
             updatedFormElement.touched = true
             orderFormCP[id] = updatedFormElement;
             let formIsValid = true

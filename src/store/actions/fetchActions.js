@@ -14,7 +14,6 @@ export const fetchOrdersInit = () => {
         return dispatch => {
             axios.get('/orders.json').then((response)=>{
                 const fetchedOrders = []
-                console.log(response.data)
                 for (let key in response.data){
                     fetchedOrders.push({...response.data[key], id: key})
                 }
