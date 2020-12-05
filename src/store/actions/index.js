@@ -18,3 +18,10 @@ export {
     fetchOrdersInit,
     fetchOrdersStart
 } from './fetchActions.js'
+
+export {
+    authStart,
+    authSuccess,
+    authFail,
+    authenticate
+} from './auth'

@@ -9,13 +9,15 @@ import donutReducer from './store/reducers/donutReducer'
 import customerReducer from './store/reducers/customerReducer'
 import {orderReducer} from './store/reducers/orderReducer'
 import {fetchReducer} from './store/reducers/fetchReducer'
+import {authReducer} from './store/reducers/authReducer'
 import thunk from 'redux-thunk'
 
 const reducer = combineReducers({
   donut: donutReducer,
   customer: customerReducer,
   order: orderReducer,
-  fetched: fetchReducer
+  fetched: fetchReducer,
+  auth: authReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

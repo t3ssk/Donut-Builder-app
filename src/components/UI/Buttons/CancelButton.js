@@ -7,5 +7,9 @@ export const CancelButton = (props) => {
 
 
 export const Button = (props) => {
-   return <button onClick={props.onClick}>{props.children}</button>
+   const classes = [styles.Submit]
+
+   props.disabled &&  classes.push(styles.Disabled)
+
+   return <button onClick={props.onClick} disabled={props.disabled} className={classes.join(' ')}>{props.children}</button>
 }

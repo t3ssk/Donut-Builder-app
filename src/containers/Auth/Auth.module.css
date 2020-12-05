@@ -1,8 +1,26 @@
 .Register {
     margin: 10% auto;
     width: 40vw;
+   text-align: center;
+}
+.Register label {
+    text-align: left;
+    margin-bottom: 7px;
 }
 
 .Register button {
-    width: 40%;
+    width: auto; 
+}
+
+
+@media (max-width: 560px){
+    .Register {width: 70vw;
+        margin: 30% 10%;}
+    .Register button {
+        margin-left: -20px;
+    } 
+}
+
+@media (max-width: 360px){
+    .Register {width: 90vw;}
 }

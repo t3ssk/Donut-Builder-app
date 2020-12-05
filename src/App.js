@@ -4,7 +4,7 @@ import DonutBuilder from './containers/DonutBuilder/DonutBuilder'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Checkout from './containers/Checkout/Checkout'
 import Orders from './containers/Orders/Orders'
-import {Auth} from './containers/Auth/Auth'
+import Auth from './containers/Auth/Auth'
 
 class App extends React.Component {
   render(){

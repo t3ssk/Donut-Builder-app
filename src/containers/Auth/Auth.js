@@ -3,68 +3,74 @@ import styles from './Auth.module.css'
 import Input from '../../components/UI/Input/Input'
 import {Button} from '../../components/UI/Buttons/CancelButton'
 import checkValidity from '../../utility'
+import * as actions from '../../store/actions/index'
+import {connect} from 'react-redux'
+import {Spinner} from '../../components/UI/Spinner/Spinner'
 
-export class Auth extends Component {
+/*JE TU POTŘEBA VYŘEŠIT PROČ SE NEUKLÁDÁ STATE*/
+
+class Auth extends Component {
     constructor(props){
         super(props)
-        this.toggleButtons = this.toggleButtons.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.props.authStart();
     }
     state = {
-        loggedIn: false, 
-        buttonToggle: false,
+        isSignedUp: true,
         signInForm: {
-            name: {
-                useFor: ['signUp', 'login'],
+            email: {
+  
                 inputType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'např. Knedlik123',
-                    label: 'Uživatelské jméno'
+                    placeholder: 'např. milovnikDonutu@seznam.cz',
+                    label: 'E-mail'
                 },
                 touched: false, 
                 rules: {
-                    required: true
+                    required: true,
+                    regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,6}$/gi
                 },
                 value: '',
                 valid: false
             },
             password: {
-                useFor: ['signUp', 'login'],
                 inputType: 'input',
                 elementConfig: {
                     type: 'password',
-                    placeholder: 'password',
+                    placeholder: '*******',
                     label: 'Heslo'
                 },
                 touched: false,
                 rules: {
                     required: true,
-                    minLength: 8
+                    minLength: 8,
+                    maxLength: 30
                 },
                 value: '',
                 valid: false
             },
-            passwordCheck: {
-                useFor: ['signUp'],
-                inputType: 'input',
-                elementConfig: {
-                    type: 'password',
-                    placeholder: 'password',
-                    label: 'Heslo'
-                },
-                touched: false,
-                rules: {
-                    required: true,
-                    minLength: 8
-                },
-                value: '',
-                valid: false
-            }
-        }
+        },
+        isValid: false,
     }
-    toggleButtons(){
-        this.setState({loggedIn: true})
+
+    handleChange(e, id){
+        const stateCopy ={ ...this.state.signInForm }
+        const updatedEl = {...stateCopy[id]}
+       updatedEl.value = e.target.value
+       updatedEl.valid = checkValidity(updatedEl.value, updatedEl.rules)
+       updatedEl.touched = true
+       stateCopy[id] = updatedEl
+       let isFormValid = true 
+       for (let key in stateCopy){
+           isFormValid = isFormValid && stateCopy[key].valid 
+       }
+      
+    this.setState({signInForm: stateCopy, isValid: isFormValid})
     }
+
+
+
     render(){
         const InputMap = []
         for (let key in this.state.signInForm){
@@ -74,35 +80,38 @@ export class Auth extends Component {
             })
         } 
 
-        const inputsSignup = InputMap.map(item=>{
-            if (item.config.useFor.includes('signUp'))
-            {return (<Input key={item.id} 
-            inputType={item.config.inputType} 
-            elementConfig={item.config.elementConfig} 
-            value={item.config.value} 
-            touched={item.config.value} 
-            onChange={()=>{}}
-            valid={item.config.valid}/>)}
-        })
-
         const inputsLogin = InputMap.map(item=>{
-            if (item.config.useFor.includes('login'))
-            {return (<Input key={item.id} 
+          
+            return (<Input key={item.id} 
+            id={item.id}
             inputType={item.config.inputType} 
             elementConfig={item.config.elementConfig} 
             value={item.config.value} 
-            touched={item.config.value} 
-            onChange={()=>{}}
-            valid={item.config.valid}/>)}
+            touched={item.config.touched} 
+            onChange={(e)=>{this.handleChange(e, item.id)}}
+            valid={item.config.valid}/>)
         })
 
-       
         return (
-        <div class={styles.Register}>
-            {this.state.registered ? inputsLogin : inputsSignup }
-            <Button onClick={()=>{}}>Registrovat se</Button> 
-            <Button onClick={()=>{}}>Příhlásit se</Button> 
-            
-        </div>)
+        this.props.loading ? <Spinner/> : (<div className={styles.Register}>
+            {inputsLogin }
+             <Button onClick={()=>{this.props.onAuth(this.state.signInForm.email.value, this.state.signInForm.password.value, !this.state.isSignedUp)}}
+                    disabled={!this.state.isValid}>{this.state.isSignedUp ? 'Zaregistrovat' : 'Přihlásit se'}</Button> 
+            <br></br>
+            <Button onClick={()=>{this.setState((prev)=> {return {isSignedUp: !prev.isSignedUp} })}} disabled={false}>{this.state.isSignedUp? 'Už mám účet' : 'Ještě nemám účet'}</Button> 
+        </div>))
     }
 }
+const mapDispatchToState = (dispatch) => {
+    return {
+        onAuth: (email,password,isSignUp) => {dispatch(actions.authenticate(email,password, isSignUp))},
+        authStart: () => {dispatch(actions.authStart)}
+    }
+}
+const mapStateToProps = (state) => {
+    return {
+        loading: state.loading
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToState)(Auth)
