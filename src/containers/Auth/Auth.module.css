@@ -12,6 +12,21 @@
     width: auto; 
 }
 
+.Error {
+    background-color: rgba(253, 223, 252, 0.938); 
+    padding: 10px 5px 10px 10px;
+    border-radius: 5px;
+    border: 1px solid #ff00d48f;
+    color: #ff00d4ef;
+    line-height: 1.1rem;
+    width: 89%;
+}
+
+small {
+    font-size: 13px;
+    padding-bottom: 10px;
+}
+
 
 @media (max-width: 560px){
     .Register {width: 70vw;
@@ -23,4 +38,5 @@
 
 @media (max-width: 360px){
     .Register {width: 90vw;}
+    .Error  {text-align: left; font-size: 0.8rem; width: 33ch;}
 }

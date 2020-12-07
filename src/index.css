@@ -52,3 +52,20 @@ body {
   overflow-x: hidden;
   width: 100vw;
 }
+.Error {
+	display: block;
+    background-color: rgba(250, 236, 249, 0.938); 
+    padding: 10px 5px 10px 10px;
+    border-radius: 5px;
+    border: 1px solid #ff00d48f;
+    color: #ff00d4ef;
+    line-height: 1.1rem;
+    width: 89%;
+}
+.Err{
+	margin: auto;
+}
+.Error::before{
+	content: "❗️";
+	margin-right: 10px;
+}

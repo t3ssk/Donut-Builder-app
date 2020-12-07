@@ -126,7 +126,7 @@ class ContactData extends Component {
         const data = {order: this.props.finalOrder, total: this.props.total,
         orderForm: customerData}
         //axios.post('/orders.json', data).then(response=>{this.setState({loading: false}); this.props.history.push('/')}).catch((error)=>{this.setState({loading: false})})
-        this.props.onSubmitInput(data)      
+        this.props.onSubmitInput(data, this.props.token)      
      }  
      
 
@@ -188,13 +188,14 @@ const mapUrlToProps = (state) => {
         email: state.customer.email,
         deliveryMethod: state.customer.deliveryMethod,
         loading: state.order.loading,
-        ordered: state.order.ordered
+        ordered: state.order.ordered,
+        token: state.auth.idToken
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
         onChangeInput: (data)=>{dispatch(appActions.contactOnChange(data))},
-        onSubmitInput: (order)=>{dispatch(appActions.purchaseDonut(order))},
+        onSubmitInput: (order, token)=>{dispatch(appActions.purchaseDonut(order, token))},
         updatePurchased: ()=>{dispatch(appActions.updatePurchased())}
     }
 }

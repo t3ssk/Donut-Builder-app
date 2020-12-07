@@ -10,9 +10,9 @@ export const fetchOrdersFailure = (error) => {
 export const fetchOrdersStart = () => {
     return {type: 'FETCH_ORDER/START'}
 }
-export const fetchOrdersInit = () => {
+export const fetchOrdersInit = (token) => {
         return dispatch => {
-            axios.get('/orders.json').then((response)=>{
+            axios.get('/orders.json?auth='+token).then((response)=>{
                 const fetchedOrders = []
                 for (let key in response.data){
                     fetchedOrders.push({...response.data[key], id: key})

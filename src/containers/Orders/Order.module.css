@@ -1,8 +1,8 @@
 .Order {
     width: 100%;
     background-color: white;
-    border: 1px solid rgba(128, 128, 128, 0.26);
-    box-shadow: 0 0 30px rgba(119, 119, 119, 0.247);
+    border: 1px solid rgba(128, 128, 128, 0.137);
+    box-shadow: 0 0 10px rgba(182, 181, 181, 0.11);
     padding: 20px;
     margin: 10px auto;
     box-sizing: border-box;
@@ -18,5 +18,5 @@
     margin-bottom: 10px;
 }
 .Total {
-    border-top: 1px solid #46CDE0;
+    border-top: 1px solid #46cee03f;
 }

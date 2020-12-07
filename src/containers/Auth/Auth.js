@@ -3,17 +3,18 @@ import styles from './Auth.module.css'
 import Input from '../../components/UI/Input/Input'
 import {Button} from '../../components/UI/Buttons/CancelButton'
 import checkValidity from '../../utility'
-import * as actions from '../../store/actions/index'
+import * as actions from '../../store/actions/auth'
 import {connect} from 'react-redux'
 import {Spinner} from '../../components/UI/Spinner/Spinner'
+import {Redirect} from 'react-router-dom'
+import {history} from 'react-router-dom'
 
-/*JE TU POTŘEBA VYŘEŠIT PROČ SE NEUKLÁDÁ STATE*/
 
 class Auth extends Component {
     constructor(props){
         super(props)
-        this.handleChange = this.handleChange.bind(this)
-        this.props.authStart();
+        this.handleChange = this.handleChange.bind(this);
+
     }
     state = {
         isSignedUp: true,
@@ -44,7 +45,7 @@ class Auth extends Component {
                 touched: false,
                 rules: {
                     required: true,
-                    minLength: 8,
+                    minLength: 6,
                     maxLength: 30
                 },
                 value: '',
@@ -92,25 +93,33 @@ class Auth extends Component {
             valid={item.config.valid}/>)
         })
 
-        return (
-        this.props.loading ? <Spinner/> : (<div className={styles.Register}>
-            {inputsLogin }
-             <Button onClick={()=>{this.props.onAuth(this.state.signInForm.email.value, this.state.signInForm.password.value, !this.state.isSignedUp)}}
-                    disabled={!this.state.isValid}>{this.state.isSignedUp ? 'Zaregistrovat' : 'Přihlásit se'}</Button> 
-            <br></br>
-            <Button onClick={()=>{this.setState((prev)=> {return {isSignedUp: !prev.isSignedUp} })}} disabled={false}>{this.state.isSignedUp? 'Už mám účet' : 'Ještě nemám účet'}</Button> 
-        </div>))
-    }
+        const signUp = (<div className={styles.Register}>
+        {this.props.error && <div className="Error"><p>
+       {this.props.error}</p></div>}
+        {inputsLogin }
+         <Button onClick={()=>{this.props.authStart(); this.props.onAuth(this.state.signInForm.email.value, this.state.signInForm.password.value, !this.state.isSignedUp)}}
+                disabled={!this.state.isValid}>{this.state.isSignedUp ? 'Zaregistrovat' : 'Přihlásit se'}</Button> 
+        <br></br>
+        <Button onClick={()=>{this.setState((prev)=> {return {isSignedUp: !prev.isSignedUp} })}} disabled={false}>{this.state.isSignedUp? 'Už mám účet' : 'Ještě nemám účet'}</Button> 
+        {this.props.authenticated && this.props.history.goBack()}
+        </div>  
+        )
+
+        return this.props.loading ? <Spinner/> : signUp
 }
+}
+
 const mapDispatchToState = (dispatch) => {
     return {
         onAuth: (email,password,isSignUp) => {dispatch(actions.authenticate(email,password, isSignUp))},
-        authStart: () => {dispatch(actions.authStart)}
+        authStart: () => {dispatch(actions.authStart())}
     }
 }
 const mapStateToProps = (state) => {
     return {
-        loading: state.loading
+        loading: state.auth.loading,
+        error: state.auth.error,
+        authenticated: state.auth.authenticated
     }
 }
 

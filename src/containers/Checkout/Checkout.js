@@ -3,6 +3,7 @@ import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumm
 import ContactData from './ContactData/ContactData'
 import {Route} from 'react-router-dom'
 import {connect} from 'react-redux'
+import styles from './Checkout.module.css'
 
  class Checkout extends React.Component{
     constructor(props){
@@ -17,10 +18,11 @@ import {connect} from 'react-redux'
         this.props.history.replace('/checkout/contact-data')
     }
     render(){
+
      return(
-        <div>
-            <CheckoutSummary icing={this.props.finalOrder.icing.typ} topping={this.props.finalOrder.topping.typ} napln={this.props.finalOrder.napln.typ} checkoutCancel={this.checkoutCancel.typ} checkoutContinue={this.checkoutContinue}/>
-            <Route path={this.props.match.url + '/contact-data'} component={ContactData}/>
+        <div className={styles.Checkout}>
+        <CheckoutSummary icing={this.props.finalOrder.icing.typ} topping={this.props.finalOrder.topping.typ} napln={this.props.finalOrder.napln.typ} checkoutCancel={this.checkoutCancel.typ} checkoutContinue={this.checkoutContinue}/>
+                <Route path={this.props.match.url + '/contact-data'} component={ContactData}/>
         </div>)
     }
 }

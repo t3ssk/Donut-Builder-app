@@ -14,7 +14,7 @@ export const Toolbar = (props) => {
 
         <Logo/>
         <nav>
-          <NavigationItems/>
+          <NavigationItems token={props.token} action={props.action} order={props.order}/>
         </nav>
     </header>
     </React.Fragment>)

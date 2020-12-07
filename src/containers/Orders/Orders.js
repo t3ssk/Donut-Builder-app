@@ -11,12 +11,14 @@ class Orders extends Component {
    
     componentDidMount(){
      
-        this.props.fetchOrdersInit()
+        this.props.fetchOrdersInit(this.props.token)
     } 
     render(){
-        const orderMap = this.props.orders.reverse().map(item=>{
-            return <Order key={item.id} icing={item.order.icing.typ} topping={item.order.topping.typ} napln={item.order.napln.typ} total={+item.total}/>})
-
+        let orderMap
+        if(this.props.orders){
+         orderMap = this.props.orders.reverse().map(item=>{
+            return <Order key={item.id} icing={item.order.icing.typ} topping={item.order.topping.typ} napln={item.order.napln.typ} total={+item.total}/>})}
+        else {orderMap = <p className="Error">Tady zatím žádné objednávky nejsou. Nejprve se přihlaš.</p>}
         return(
         <div className={styles.Orders}>
         <h3>Tvoje objednávky</h3>
@@ -29,14 +31,13 @@ class Orders extends Component {
 const mapStateToProps = (state) => {
     return { 
         orders: state.fetched.orders,
-        loading: state.fetched.loading
-      //total: state.customer.total}
+        loading: state.fetched.loading,
+        token: state.auth.idToken
   }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        //startAction: ()=>{dispatch(appActions.fetchOrdersStart())},
-        fetchOrdersInit: ()=>{dispatch(appActions.fetchOrdersInit())}
+        fetchOrdersInit: (token)=>{dispatch(appActions.fetchOrdersInit(token))}
     }
 }
 

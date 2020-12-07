@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-.NavigationItem a{
+.NavigationItem a, li{
     font-weight: 600;
     padding: 16px 10px 0 16px;
     height: 100%;
@@ -16,6 +16,8 @@
     color: rgb(51, 184, 207);
     text-decoration: none;
 }
+
+li{margin-top: 33px;}
 
 
 .NavigationItem a:hover, 
