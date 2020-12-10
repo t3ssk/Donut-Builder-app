@@ -19,7 +19,7 @@ class App extends React.Component {
   }
   render(){
  return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Donut-Builder-app">
     <Layout>
       <Switch>
         <Route path='/checkout' component={Checkout}/>
