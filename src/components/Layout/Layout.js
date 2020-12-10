@@ -1,7 +1,6 @@
 import React from 'react';
 import { Toolbar } from '../Navigation/Toolbar/Toolbar'
 import { SideDrawer } from '../Navigation/SideDrawer/SideDrawer'
-import classes from './Layout.module.css'
 import {connect} from 'react-redux'
 import * as actions from '../../store/actions/auth' 
 
@@ -23,7 +22,7 @@ class Layout extends React.Component {
     render()
     {return(<React.Fragment>
     <Toolbar onClick={this.sideDrawerOpenHandler} token={this.props.token} action={this.props.logOut} order={this.props.order}/>
-    <SideDrawer handleHide={this.sideDrawerClosedHandler} shown={this.state.showSideDrawer}/>
+    <SideDrawer handleHide={this.sideDrawerClosedHandler} shown={this.state.showSideDrawer} token={this.props.token} action={this.props.logOut} order={this.props.order}/>
     <main>
         {this.props.children}
     </main>

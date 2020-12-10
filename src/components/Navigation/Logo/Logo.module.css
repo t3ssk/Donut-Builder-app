@@ -21,3 +21,20 @@
 .Logo a{
     text-decoration: none;
 }
+
+@media (max-width: 661px) {
+
+    .Logo__name{
+        font-size:25px;
+    }
+}
+
+@media (max-width: 645px) {
+    .Logo svg{
+        height: 36px;
+ 
+    }
+    .Logo__name{
+        font-size:20px;
+    }
+}

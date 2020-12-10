@@ -28,6 +28,18 @@ li{margin-top: 33px;}
     transition: border 0.3s ease-in; 
 }
 
+@media (max-width: 680px) {
+
+    .NavigationItem a, li{
+        margin-left: 5px;
+        font-size: 0.9rem;
+        padding: 16px 0px 0 16px;}
+}
+@media (max-width: 572px) {
+
+    .NavigationItem a, li{
+        margin-left: -5px;}
+}
 @media (max-width: 500px) {
     .NavigationItem a:hover, 
     .NavigationItem a:active, 

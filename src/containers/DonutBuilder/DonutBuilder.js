@@ -10,7 +10,7 @@ import Checkout from '../Checkout/Checkout'
 import {connect} from 'react-redux'
 import * as appActions from '../../store/actions/index'
 
-class DonutBuilder extends React.Component {
+export class DonutBuilder extends React.Component {
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
@@ -123,7 +123,7 @@ class DonutBuilder extends React.Component {
         Object.keys(oldTopping).forEach(item=>oldTopping[item].bought=false)
         Object.keys(oldNapln).forEach(item=>oldNapln[item].bought=false)
 
-  
+        this.props.resetPurchase()
         this.setState({icing: oldIcing, topping: oldTopping, napln: oldNapln, total: 0, finalOrder: {icing: {cena: 0}, topping:{cena: 0}, napln: {cena: 0}}})
 
     }
@@ -199,7 +199,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         onGetOrder: (order) => dispatch(appActions.getOrder(order)),
-        getTotal: (total)=>dispatch(appActions.getTotal(total))
+        getTotal: (total)=>dispatch(appActions.getTotal(total)),
+        resetPurchase: () => dispatch(appActions.clearPurchase())
     }
 } 
 

@@ -11,6 +11,9 @@ const donutReducer = (state=initialState, action) => {
             return updateState(state, {finalOrder: action.finalOrder})
         case 'GET_TOTAL':
             return updateState(state, {total: action.total})
+        case 'CLEAR_PURCHASE': 
+        return  updateState(state,{total: 0,
+        finalOrder: {icing: {cena: 0}, topping:{cena: 0}, napln: {cena: 0}}})
         default:
             return state;
     }

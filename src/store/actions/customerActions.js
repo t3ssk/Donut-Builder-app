@@ -16,12 +16,18 @@ export const purchaseDonutStart = () => {
     return {type: 'PURCHASE_DONUT_START'}
 }
 
+export const clearPurchase = () => {
+    return {type: 'CLEAR_PURCHASE'}
+}
+
 export const purchaseDonut = (orderData, token) => {
     return dispatch => {
         dispatch(purchaseDonutStart())
         axios.post(`/orders.json?auth=${token}`, orderData)
         .then(response=>{
-        dispatch(purchaseDonutSuccess(response.data.name, orderData))})
+        dispatch(purchaseDonutSuccess(response.data.name, orderData))}).then(
+            response=>{dispatch(clearPurchase())}
+        )
         .catch((error)=>{dispatch(purchaseDonutFailure(error))})
     }
 }

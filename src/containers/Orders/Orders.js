@@ -11,7 +11,7 @@ class Orders extends Component {
    
     componentDidMount(){
      
-        this.props.fetchOrdersInit(this.props.token)
+        this.props.fetchOrdersInit(this.props.token, this.props.localId)
     } 
     render(){
         let orderMap
@@ -32,12 +32,13 @@ const mapStateToProps = (state) => {
     return { 
         orders: state.fetched.orders,
         loading: state.fetched.loading,
-        token: state.auth.idToken
-  }
+        token: state.auth.idToken,
+        localId: state.auth.localId  
+    }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchOrdersInit: (token)=>{dispatch(appActions.fetchOrdersInit(token))}
+        fetchOrdersInit: (token,localId)=>{dispatch(appActions.fetchOrdersInit(token, localId))}
     }
 }
 

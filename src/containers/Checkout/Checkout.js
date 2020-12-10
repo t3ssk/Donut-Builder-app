@@ -4,6 +4,7 @@ import ContactData from './ContactData/ContactData'
 import {Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 import styles from './Checkout.module.css'
+import * as actions from '../../store/actions/customerActions'
 
  class Checkout extends React.Component{
     constructor(props){
@@ -12,7 +13,8 @@ import styles from './Checkout.module.css'
         this.checkoutContinue = this.checkoutContinue.bind(this)
     }
     checkoutCancel(){
-        this.props.history.goBack()
+        this.props.cancelOrder()
+        this.props.history.push('/')
     }
     checkoutContinue(){
         this.props.history.replace('/checkout/contact-data')
@@ -21,7 +23,7 @@ import styles from './Checkout.module.css'
 
      return(
         <div className={styles.Checkout}>
-        <CheckoutSummary icing={this.props.finalOrder.icing.typ} topping={this.props.finalOrder.topping.typ} napln={this.props.finalOrder.napln.typ} checkoutCancel={this.checkoutCancel.typ} checkoutContinue={this.checkoutContinue}/>
+        <CheckoutSummary icing={this.props.finalOrder.icing.typ} topping={this.props.finalOrder.topping.typ} napln={this.props.finalOrder.napln.typ} checkoutCancel={this.checkoutCancel} checkoutContinue={this.checkoutContinue}/>
                 <Route path={this.props.match.url + '/contact-data'} component={ContactData}/>
         </div>)
     }
@@ -33,4 +35,10 @@ const mapStateToProps = state =>{
         total: state.donut.total
     }
 }
-export default connect(mapStateToProps)(Checkout)
+
+const mapDispatchToProps = dispatch => {
+    return {
+        cancelOrder: ()=>{dispatch(actions.clearPurchase())}
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Checkout)

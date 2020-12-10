@@ -6,8 +6,6 @@ import checkValidity from '../../utility'
 import * as actions from '../../store/actions/auth'
 import {connect} from 'react-redux'
 import {Spinner} from '../../components/UI/Spinner/Spinner'
-import {Redirect} from 'react-router-dom'
-import {history} from 'react-router-dom'
 
 
 class Auth extends Component {
@@ -30,7 +28,7 @@ class Auth extends Component {
                 touched: false, 
                 rules: {
                     required: true,
-                    regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,6}$/gi
+                    regex: /^[\w-.]+@([\w-]+\.)+[\w-]{2,6}$/gi
                 },
                 value: '',
                 valid: false

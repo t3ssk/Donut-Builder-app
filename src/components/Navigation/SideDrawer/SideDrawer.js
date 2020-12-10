@@ -19,7 +19,7 @@ export const SideDrawer = (props) => {
                 </div>
                 <Logo/>
                 <nav>
-                    <NavigationItems/>
+                    <NavigationItems token={props.token} action={props.action} order={props.order}/>
                 </nav>
         </div>
     </React.Fragment>)

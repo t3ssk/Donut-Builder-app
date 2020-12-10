@@ -87,7 +87,7 @@ class ContactData extends Component {
                 touched: false,
                 rules: {
                     required: true,
-                    regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/gi
+                    regex: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi
                 },
                 value: "",
                 valid: false
@@ -123,7 +123,7 @@ class ContactData extends Component {
         for (let key in this.state.orderForm){
             customerData[key]= this.state.orderForm[key].value}
         
-        const data = {order: this.props.finalOrder, total: this.props.total,
+        const data = {order: this.props.finalOrder, total: this.props.total, userId: this.props.localId,
         orderForm: customerData}
         //axios.post('/orders.json', data).then(response=>{this.setState({loading: false}); this.props.history.push('/')}).catch((error)=>{this.setState({loading: false})})
         this.props.onSubmitInput(data, this.props.token)      
@@ -177,7 +177,7 @@ class ContactData extends Component {
     }
 }
 
-const mapUrlToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         finalOrder: state.donut.finalOrder,
         total: state.donut.total,
@@ -189,7 +189,9 @@ const mapUrlToProps = (state) => {
         deliveryMethod: state.customer.deliveryMethod,
         loading: state.order.loading,
         ordered: state.order.ordered,
-        token: state.auth.idToken
+        token: state.auth.idToken,
+        localId: state.auth.localId,
+
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -199,4 +201,4 @@ const mapDispatchToProps = (dispatch) => {
         updatePurchased: ()=>{dispatch(appActions.updatePurchased())}
     }
 }
-export default connect(mapUrlToProps,mapDispatchToProps)( withErrorHandler(ContactData, axios))
+export default connect(mapStateToProps,mapDispatchToProps)( withErrorHandler(ContactData, axios))

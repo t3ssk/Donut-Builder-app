@@ -9,7 +9,8 @@ export {
     purchaseDonutSuccess, 
     purchaseDonutFailure,
     contactOnChange, 
-    contactOnSubmit
+    contactOnSubmit,
+    clearPurchase
 } from './customerActions'
 
 export {
