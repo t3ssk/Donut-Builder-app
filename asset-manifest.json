@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Donut-Builder-app/static/css/main.2397f17d.chunk.css",
+    "main.css": "/Donut-Builder-app/static/css/main.c48beba7.chunk.css",
     "main.js": "/Donut-Builder-app/static/js/main.d1bf8d8b.chunk.js",
     "main.js.map": "/Donut-Builder-app/static/js/main.d1bf8d8b.chunk.js.map",
     "runtime-main.js": "/Donut-Builder-app/static/js/runtime-main.b352bcec.js",
@@ -16,7 +16,7 @@
     "static/js/5.aade686d.chunk.js.map": "/Donut-Builder-app/static/js/5.aade686d.chunk.js.map",
     "index.html": "/Donut-Builder-app/index.html",
     "static/css/3.a62de7df.chunk.css.map": "/Donut-Builder-app/static/css/3.a62de7df.chunk.css.map",
-    "static/css/main.2397f17d.chunk.css.map": "/Donut-Builder-app/static/css/main.2397f17d.chunk.css.map",
+    "static/css/main.c48beba7.chunk.css.map": "/Donut-Builder-app/static/css/main.c48beba7.chunk.css.map",
     "static/js/2.90668b97.chunk.js.LICENSE.txt": "/Donut-Builder-app/static/js/2.90668b97.chunk.js.LICENSE.txt",
     "static/js/4.c0994bcb.chunk.js.LICENSE.txt": "/Donut-Builder-app/static/js/4.c0994bcb.chunk.js.LICENSE.txt",
     "static/media/IcingBlue.a07bdd82.png": "/Donut-Builder-app/static/media/IcingBlue.a07bdd82.png",
@@ -45,7 +45,7 @@
   "entrypoints": [
     "static/js/runtime-main.b352bcec.js",
     "static/js/2.90668b97.chunk.js",
-    "static/css/main.2397f17d.chunk.css",
+    "static/css/main.c48beba7.chunk.css",
     "static/js/main.d1bf8d8b.chunk.js"
   ]
 }
